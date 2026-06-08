@@ -104,6 +104,30 @@ Alternatively, use online services (like Google Colab):
 
 - [List of Online Services](https://github.com/AUTOMATIC1111/stable-diffusion-webui/wiki/Online-Services)
 
+### Run on a cloud GPU with AI Badgr
+AI Badgr is optional for users who do not have enough local VRAM, want temporary GPU capacity, or want to compare cheap GPU routes before running. AI Badgr routes GPU workloads across available capacity with max price controls, runtime caps, logs, teardown, and receipts.
+
+Check available RTX 4090 pricing before you launch:
+```bash
+npx gpu-price-finder --gpu RTX_4090 --max-price 1
+```
+
+Install and log in:
+```bash
+npm install -g badgr-cli
+badgr login
+```
+
+Run the existing web UI launch script on a temporary GPU with price and runtime caps:
+```bash
+badgr run "./webui.sh" --gpu RTX_4090 --tier 2 --max-price 1 --max-runtime 60
+```
+
+Because the web UI starts a persistent Gradio server, you can also use `serve` with the repo launch script and a max cost cap:
+```bash
+badgr serve ./webui.sh --gpu L40S --max-cost 10
+```
+
 ### Installation on Windows 10/11 with NVidia-GPUs using release package
 1. Download `sd.webui.zip` from [v1.0.0-pre](https://github.com/AUTOMATIC1111/stable-diffusion-webui/releases/tag/v1.0.0-pre) and extract its contents.
 2. Run `update.bat`.
